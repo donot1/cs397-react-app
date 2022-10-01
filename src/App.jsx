@@ -1,8 +1,11 @@
 import { useState } from 'react';
 import logo from './logo.svg';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import Banner from './components/Banner';
 import CourseList from './components/CourseList';
 import './App.css';
+
 
 const schedule = {
   "title": "CS Courses for 2018-2019",
@@ -36,7 +39,7 @@ const schedule = {
 
 const App = () => {
   return (
-      <div>
+      <div className="container">
         <Banner title={schedule.title}/>
         <CourseList courses={schedule.courses}/>
       </div>
