@@ -1,5 +1,5 @@
 .card.m-1.p-2 div{
-    margin: 5px;
+    margin: 0px;
 }
 
 .card.m-1.p-2 .card-title{
@@ -10,11 +10,12 @@
 
 .card.m-1.p-2 .card-text{
     width: 100%;
-    height: 6vw;
+    height: 4vw;
     object-fit: cover;
 }
 
 .card.m-1.p-2 .card-footer{
     width: 100%;
+    height: 3vw;
     object-fit: contains;
 }
