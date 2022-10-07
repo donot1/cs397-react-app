@@ -2,7 +2,7 @@ import { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-import CourseList from './components/CourseList';
+import TermPage from './components/TermPage'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useJsonQuery } from "./utilities/fetch";
 
@@ -21,8 +21,8 @@ const Schedule = () => {
   }
   return (
     <div>
-      <h1>{schedule.title}</h1>
-      <CourseList courses={schedule.courses}></CourseList>
+      <h1>{schedule.title} </h1>
+      <TermPage courses={schedule.courses}></TermPage>
     </div>
   );
 }
