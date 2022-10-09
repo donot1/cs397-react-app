@@ -19,3 +19,8 @@
     height: 3vw;
     object-fit: contains;
 }
+
+.selected {
+    background-color: burlywood;
+    color: green;
+}

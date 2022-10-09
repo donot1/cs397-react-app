@@ -1,10 +1,11 @@
 import React from 'react';
 import "./Course.css";
 
-const Course = ({course}) => {
+const Course = ({id, course, selected, toggleSelected}) => {
+  console.log(selected);
   return(
-    <div className="card m-1 p-2">
-      <div className="card-body">
+    <div className="card m-1 p-2" onClick={() => toggleSelected(id)}>
+      <div className={`card-body ${selected.includes(id) ? 'selected' : ''}`}>
         <h5 className="card-title">{course.term} CS {course.number}</h5>
         <div className="card-text">{course.title}</div>
         </div>

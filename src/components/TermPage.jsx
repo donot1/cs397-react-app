@@ -36,15 +36,23 @@ const TermSelector = ({selection, setSelection}) => (
 );
 
 const TermPage = ({courses}) => {
-    const [selection, setSelection] = useState(() => Object.keys(terms)[0]);
-    const termCourses = Object.values(courses).filter((course) => course.term === selection);
-    console.log(courses);
-    console.log(selection); 
-    console.log(terms);  
+    const [selectedTerm, setSelectedTerm] = useState(Object.keys(terms)[0]);
+    const [selectedCourses, setSelectedCourses] = useState([]);
+    const termCourses = Object.values(courses).filter((course) => course.term === selectedTerm);
+    
+    const toggleSelectedCourse = (item) => {
+        console.log("toggled");
+        setSelectedCourses(
+        selectedCourses.includes(item) 
+        ? selectedCourses.filter(x => x !== item)
+        : [...selectedCourses, item]
+    );
+        }
+
     return (
         <div>
-            <TermSelector selection={selection} setSelection={setSelection} />
-            <CourseList courses={termCourses} />
+            <TermSelector selected={selectedTerm} setSelection={setSelectedTerm} />
+            <CourseList courses={termCourses} selected={selectedCourses} toggleSelected={toggleSelectedCourse} />
         </div>
     );
 }
