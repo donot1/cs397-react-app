@@ -1,5 +1,7 @@
 import { useState } from 'react'; 
 import CourseList from './CourseList';
+import Modal from './Modal';
+import CourseCart from './CourseCart';
 
 const terms = {
     Fall: "Fall Classes",
@@ -38,20 +40,30 @@ const TermSelector = ({selection, setSelection}) => (
 const TermPage = ({courses}) => {
     const [selectedTerm, setSelectedTerm] = useState(Object.keys(terms)[0]);
     const [selectedCourses, setSelectedCourses] = useState([]);
+    const [open, setOpen] = useState(false);
+
     const termCourses = Object.values(courses).filter((course) => course.term === selectedTerm);
     
     const toggleSelectedCourse = (item) => {
-        console.log("toggled");
         setSelectedCourses(
         selectedCourses.includes(item) 
         ? selectedCourses.filter(x => x !== item)
         : [...selectedCourses, item]
-    );
-        }
+        );
+    }
 
+    const openModal = () => setOpen(true)
+    const closeModal = () => setOpen(false);
+    
     return (
         <div>
-            <TermSelector selected={selectedTerm} setSelection={setSelectedTerm} />
+            <div>
+            <TermSelector selectedTerm={selectedTerm} setSelection={setSelectedTerm} />
+            <button className="btn btn-outline-dark" onClick={openModal}>See Courses</button>
+            </div>
+            <Modal open={open} close={closeModal}>
+                <CourseCart courses={termCourses} selected={selectedCourses} />
+            </Modal>
             <CourseList courses={termCourses} selected={selectedCourses} toggleSelected={toggleSelectedCourse} />
         </div>
     );
