@@ -2,6 +2,7 @@ import { useState } from 'react';
 import CourseList from './CourseList';
 import Modal from './Modal';
 import CourseCart from './CourseCart';
+import scheduleOverlap from '../utilities/conflict.js';
 
 const terms = {
     Fall: "Fall Classes",
@@ -37,9 +38,14 @@ const TermSelector = ({selection, setSelection}) => (
     </div>
 );
 
+const i2c = (courses, id) => {
+    return courses[Object.keys(courses)[id]];
+}
+
 const TermPage = ({courses}) => {
     const [selectedTerm, setSelectedTerm] = useState(Object.keys(terms)[0]);
     const [selectedCourses, setSelectedCourses] = useState([]);
+    const [conflictCourses, setConflictCourses] = useState([]);
     const [open, setOpen] = useState(false);
 
     const termCourses = Object.values(courses).filter((course) => course.term === selectedTerm);
@@ -49,6 +55,12 @@ const TermPage = ({courses}) => {
         selectedCourses.includes(item) 
         ? selectedCourses.filter(x => x !== item)
         : [...selectedCourses, item]
+        );
+
+        setConflictCourses(
+            !conflictCourses.includes(item) && scheduleOverlap(i2c(courses, item), selectedCourses.map((elem) => i2c(courses, elem)))
+            ? [...conflictCourses, item]
+            : conflictCourses.filter(x => x !== item)
         );
     }
 
@@ -64,7 +76,7 @@ const TermPage = ({courses}) => {
             <Modal open={open} close={closeModal}>
                 <CourseCart courses={termCourses} selected={selectedCourses} />
             </Modal>
-            <CourseList courses={termCourses} selected={selectedCourses} toggleSelected={toggleSelectedCourse} />
+            <CourseList courses={termCourses} selected={selectedCourses} conflicts={conflictCourses} toggleSelected={toggleSelectedCourse} />
         </div>
     );
 }
