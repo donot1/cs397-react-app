@@ -1,5 +1,6 @@
 import React from 'react';
 import "./Course.css";
+import { Link } from 'react-router-dom';
 
 const Course = ({id, course, selected, conflicts, toggleSelected}) => {
   return(
@@ -12,6 +13,7 @@ const Course = ({id, course, selected, conflicts, toggleSelected}) => {
         <div className="card-footer bg-white">
           <p className="card-text">{course.meets}</p>
         </div>
+        <Link to={`/courses/${id}`}><i className="bi bi-pencil-square"></i></Link>
     </div>
   );
 }

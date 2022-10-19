@@ -1,6 +1,5 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { useFormData } from '../../utilities/useFormData';
 
 const validateCourseData = (key, val) => {
     switch (key) {
@@ -49,6 +48,8 @@ export const useFormData = (values = {}) => {
 
 
 const AddCourseForm = ({ data }) => {
+    console.log("ACF DATA");
+    console.log(data); 
     const { id } = useParams();
     const [state, change] = useFormData(data.courses[id]);
     return (

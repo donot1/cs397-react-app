@@ -6,7 +6,9 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import './App.css';
 
 import TermPage from './components/TermPage'
+import AddCourseForm from './components/AddCourseForm';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useJsonQuery } from "./utilities/fetch";
 
 
@@ -21,10 +23,12 @@ const Schedule = () => {
     return <p>Loading schedule...</p>;
   }
   return (
-    <div>
-      <h1>{schedule.title} </h1>
-      <TermPage courses={schedule.courses}></TermPage>
-    </div>
+    <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<TermPage courses={schedule.courses}/>} />
+      <Route path="/courses/:id" element={<AddCourseForm data={schedule}/>}/>
+    </Routes>
+    </BrowserRouter>
   );
 }
 
