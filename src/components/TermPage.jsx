@@ -43,12 +43,14 @@ const i2c = (courses, id) => {
 }
 
 const TermPage = ({courses}) => {
+    console.log("COURSES", courses);
     const [selectedTerm, setSelectedTerm] = useState(Object.keys(terms)[0]);
     const [selectedCourses, setSelectedCourses] = useState([]);
     const [conflictCourses, setConflictCourses] = useState([]);
     const [open, setOpen] = useState(false);
 
     const termCourses = Object.values(courses).filter((course) => course.term === selectedTerm);
+    console.log("TERM COURSES", termCourses);
     
     const toggleSelectedCourse = (item) => {
         setSelectedCourses(
