@@ -38,6 +38,8 @@ const makeResult = (error) => {
 };
 
 export const useDbUpdate = (path) => {
+  console.log("DB UPDATE PRINTING");
+  console.log(path); 
   const [result, setResult] = useState();
   const updateData = useCallback((value) => {
     update(ref(database, path), value)
