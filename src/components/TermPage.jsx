@@ -5,13 +5,13 @@ import CourseCart from './CourseCart';
 import scheduleOverlap from '../utilities/conflict.js';
 
 const terms = {
-    Fall: "Fall Classes",
-    Winter: "Winter Classes",
-    Spring: "Spring Classes"
+    Fall: "Fall",
+    Winter: "Winter",
+    Spring: "Spring"
 };
 
 const TermButton = ({term, selection, setSelection}) => (
-    <div>
+    <div data-cy={term}>
         <input 
             type="radio" 
             id={term} 
