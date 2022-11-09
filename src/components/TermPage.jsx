@@ -3,6 +3,7 @@ import CourseList from './CourseList';
 import Modal from './Modal';
 import CourseCart from './CourseCart';
 import scheduleOverlap from '../utilities/conflict.js';
+import { signInWithGoogle, signOut } from "../utilities/firebase";
 
 const terms = {
     Fall: "Fall",
@@ -75,6 +76,10 @@ const TermPage = ({courses}) => {
             <TermSelector selectedTerm={selectedTerm} setSelection={setSelectedTerm} />
             <button className="btn btn-outline-dark" onClick={openModal}>See Courses</button>
             </div>
+            <div>
+					<button type="button" className="btn btn-primary" onClick={() => signInWithGoogle()}>Sign In</button>
+					<button type="button" className="btn btn-primary" onClick={() => signOut()}>Sign Out</button>
+			</div>
             <Modal open={open} close={closeModal}>
                 <CourseCart courses={termCourses} selected={selectedCourses} />
             </Modal>

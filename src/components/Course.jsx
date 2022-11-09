@@ -1,8 +1,11 @@
 import React from 'react';
 import "./Course.css";
 import { Link } from 'react-router-dom';
+import { useAuthState } from "../utilities/firebase";
 
 const Course = ({id, course, selected, conflicts, toggleSelected}) => {
+  const [user] = useAuthState();
+	const isUserAuthenticated = (user !== null);
   return(
     <div className="card m-1 p-2" 
          data-cy="course"
@@ -15,7 +18,9 @@ const Course = ({id, course, selected, conflicts, toggleSelected}) => {
         <div className="card-footer bg-white">
           <p className="card-text">{course.meets}</p>
         </div>
-        <Link to={`/courses/${id}`}><i className="bi bi-pencil-square"></i></Link>
+        { isUserAuthenticated
+            ? <Link to={`/courses/${id}`}><i className="bi bi-pencil-square"></i></Link>
+            : null }
     </div>
   );
 }

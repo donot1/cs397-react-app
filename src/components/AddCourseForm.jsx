@@ -2,6 +2,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useDbUpdate } from "../utilities/firebase";
 
+
 const validateCourseData = (key, val) => {
     switch (key) {
       case 'title':
