@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 import { getDatabase, onValue, ref, update } from 'firebase/database';
 import { initializeApp } from 'firebase/app';
-import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut } from 'firebase/auth';
+import { connectAuthEmulator, signInWithCredential, getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut } from 'firebase/auth';
+import { connectDatabaseEmulator } from "firebase/database";
 
 
 const firebaseConfig = {
@@ -16,7 +17,23 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const firebase = initializeApp(firebaseConfig);
+const auth = getAuth(firebase);
 const database = getDatabase(firebase);
+
+if (!window.EMULATION && import.meta.env.VITE_EMULATE) {
+  connectAuthEmulator(auth, "http://127.0.0.1:9099");
+  connectDatabaseEmulator(database, "127.0.0.1", 9000);
+  console.log("connected");
+  console.log(database); 
+
+  signInWithCredential(auth,GoogleAuthProvider.credential(
+    '{"sub": "fJBGrLtGB6BnDf4fh0E7CJuzIjKi", "email": "raucervan@gmail.com", "displayName":"rc","email_verified": true}'
+  ));
+
+  window.EMULATION = true;
+}
+
+
 
 export const useDbData = (path) => {
   const [data, setData] = useState();
@@ -40,7 +57,6 @@ const makeResult = (error) => {
 };
 
 export const useDbUpdate = (path) => {
-  console.log("DB UPDATE PRINTING");
   console.log(path); 
   const [result, setResult] = useState();
   const updateData = useCallback((value) => {
@@ -69,3 +85,4 @@ export const useAuthState = () => {
 
   return [user];
 };
+

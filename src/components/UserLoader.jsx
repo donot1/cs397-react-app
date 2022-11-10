@@ -9,6 +9,9 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 const AppData = () => {
   const [data, error] = useDbData('/');
 
+  console.log("READING DATA"); 
+  console.log(data); 
+
   if (error) return <h1>Error loading data: {error.toString()}</h1>;
   if (data === undefined) return <h1>Loading data...</h1>;
   if (!data) return <h1>No data found</h1>;
